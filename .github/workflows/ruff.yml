@@ -1,4 +1,4 @@
-name: Ruff
+name: ci/gh-actions/ruff
 
 on: [ push, pull_request ]
 
