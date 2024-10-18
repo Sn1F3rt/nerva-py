@@ -30,14 +30,14 @@ dependencies = [
     "aiohttp>=3.10.10",
 ]
 
-[tool.hatch.build.targets.wheel]
-packages = ["nerva"]
-
 [tool.uv]
 dev-dependencies = [
     "pre-commit>=3.5.0",
-    "ruff>=0.6.9",
+    "ruff>=0.7.0",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["nerva"]
 
 [build-system]
 requires = ["hatchling"]
