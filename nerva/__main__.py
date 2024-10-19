@@ -13,14 +13,10 @@ def show_version() -> None:
     v = sys.version_info
     entries.append(
         f"- Python v{v.major}.{v.minor}.{v.micro}"
-        + (f"-{v.releaselevel}" if v.releaselevel != "final" else "")
+        + (f"-{v.releaselevel}{v.serial}" if v.releaselevel != "final" else "")
     )
 
-    v = nerva.version_info
-    entries.append(
-        f"- pyxnv v{v.major}.{v.minor}.{v.micro}"
-        + (f"{v.releaselevel[0]}{v.serial}" if v.releaselevel != "final" else "")
-    )
+    entries.append(f"- nerva-py v{nerva.__version__}")
 
     entries.append(f"- aiohttp v{aiohttp.__version__}")
 
