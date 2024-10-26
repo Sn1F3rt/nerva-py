@@ -1,6 +1,7 @@
 # Nerva Python Library
 
 [![Ruff](https://github.com/Sn1F3rt/nerva-py/actions/workflows/ruff.yml/badge.svg)](https://github.com/Sn1F3rt/nerva-py/actions/workflows/ruff.yml)
+[![Build](https://github.com/Sn1F3rt/nerva-py/actions/workflows/build.yml/badge.svg)](https://github.com/Sn1F3rt/nerva-py/actions/workflows/build.yml)
 [![License](https://img.shields.io/github/license/Sn1F3rt/nerva-py)](LICENSE)
 
 ## Table of Contents
