@@ -1,6 +1,6 @@
 [project]
 name = "nerva-py"
-version = "1.0.0b1"
+version = "1.0.0"
 description = "Python bindings for the JSON RPC interface of the Nerva cryptocurrency."
 license = "MIT"
 authors = [
@@ -13,7 +13,7 @@ repository = "https://github.com/Sn1F3rt/nerva-py"
 documentation = "https://github.com/Sn1F3rt/nerva-py?tab=readme-ov-file#documentation"
 keywords = ["nerva", "cryptocurrency", "json-rpc", "bindings", "python"]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
