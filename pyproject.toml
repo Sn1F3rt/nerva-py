@@ -1,6 +1,6 @@
 [project]
 name = "nerva-py"
-version = "1.0.0"
+version = "1.0.1"
 description = "Python bindings for the JSON RPC interface of the Nerva cryptocurrency."
 license = "MIT"
 authors = [
