@@ -4,10 +4,10 @@ from typing import Any, Dict, List, Optional
 
 import aiohttp
 
-__all__ = ["DaemonJSONRPC", "DaemonOther"]
+__all__ = ["DaemonRPC", "DaemonLegacy"]
 
 
-class DaemonJSONRPC:
+class DaemonRPC:
     """
     A class to interact with the Nerva daemon's JSON-RPC interface.
 
@@ -634,7 +634,7 @@ class DaemonJSONRPC:
         return await self._request("add_peer", {"host": host})
 
 
-class DaemonOther:
+class DaemonLegacy:
     """
     A class to interact with the Nerva daemon's independent endpoint methods.
 
