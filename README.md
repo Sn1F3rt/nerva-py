@@ -46,11 +46,11 @@ Here is a simple example to get you started:
 ```python
 import asyncio
 
-from nerva.daemon import DaemonJSONRPC
+from nerva.daemon import DaemonRPC
 
 
 async def main():
-    daemon = DaemonJSONRPC(
+    daemon = DaemonRPC(
         host="x.y.z.w",
     )
 
