@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-import aiohttp
+import httpx
 
-__all__ = ["DaemonRPC", "DaemonLegacy"]
+__all__ = ["Daemon", "DaemonLegacy"]
 
 
-class DaemonRPC:
+class Daemon:
     """
     A class to interact with the Nerva daemon's JSON-RPC interface.
 
@@ -32,7 +32,7 @@ class DaemonRPC:
         The headers for the request.
     """
 
-    __slots__ = ["url", "timeout", "headers"]
+    __slots__ = ["url", "timeout", "headers", "auth"]
 
     def __init__(
         self,
@@ -40,20 +40,26 @@ class DaemonRPC:
         port: Optional[int] = 17566,
         ssl: Optional[bool] = False,
         timeout: Optional[float] = 10.0,
+        username: Optional[str] = None,
+        password: Optional[str] = None,
     ) -> None:
         self.url: str = f"{'https' if ssl else 'http'}://{host}:{port}"
         self.timeout: float = timeout
         self.headers: Dict[str, str] = {"Content-Type": "application/json"}
+        self.auth: Optional[httpx.DigestAuth] = (
+            httpx.DigestAuth(username, password) if username and password else None
+        )
 
     async def _request(self, method: str, params: Dict[str, Any]) -> Dict[str, Any]:
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
                 f"{self.url}/json_rpc",
                 json={"jsonrpc": "2.0", "id": 0, "method": method, "params": params},
                 headers=self.headers,
                 timeout=self.timeout,
-            ) as response:
-                return await response.json(content_type=None)
+                auth=self.auth,
+            )
+            return response.json()
 
     async def get_block_count(self) -> Dict[str, Any]:
         """
@@ -660,7 +666,7 @@ class DaemonLegacy:
 
     """
 
-    __slots__ = ["url", "timeout", "headers"]
+    __slots__ = ["url", "timeout", "headers", "auth"]
 
     def __init__(
         self,
@@ -668,23 +674,28 @@ class DaemonLegacy:
         port: Optional[int] = 17566,
         ssl: Optional[bool] = False,
         timeout: Optional[float] = 10.0,
+        username: Optional[str] = None,
+        password: Optional[str] = None,
     ):
         self.url = f"{'https' if ssl else 'http'}://{host}:{port}"
         self.timeout = timeout
-
         self.headers = {"Content-Type": "application/json"}
+        self.auth = (
+            httpx.DigestAuth(username, password) if username and password else None
+        )
 
     async def _request(
         self, endpoint: str, params: Dict[str, Any]
     ) -> Dict[str, Any]:
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
                 f"{self.url}/{endpoint}",
                 json=params,
                 headers=self.headers,
                 timeout=self.timeout,
-            ) as response:
-                return await response.json(content_type=None)
+                auth=self.auth,
+            )
+            return response.json()
 
     async def get_height(self) -> Dict[str, Any]:
         """

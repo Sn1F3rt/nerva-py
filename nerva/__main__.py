@@ -2,7 +2,7 @@ import sys
 import argparse
 import platform
 
-import aiohttp
+import httpx
 
 import nerva
 
@@ -18,7 +18,7 @@ def show_version() -> None:
 
     entries.append(f"- nerva-py v{nerva.__version__}")
 
-    entries.append(f"- aiohttp v{aiohttp.__version__}")
+    entries.append(f"- httpx v{httpx.__version__}")
 
     uname = platform.uname()
     entries.append(f"- System Info: {uname.system} {uname.release} {uname.version}")

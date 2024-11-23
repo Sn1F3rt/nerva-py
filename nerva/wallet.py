@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
 
-import aiohttp
+import httpx
 
 __all__ = ["Wallet"]
 
@@ -56,23 +56,22 @@ class Wallet:
         password: str = "",
     ) -> None:
         self.url: str = f"http{'s' if ssl else ''}://{host}:{port}"
-        self.auth: Optional[aiohttp.BasicAuth] = (
-            aiohttp.BasicAuth(username, password) if username and password else None
-        )
         self.timeout: float = timeout
-
         self.headers: Dict[str, str] = {"Content-Type": "application/json"}
+        self.auth: Optional[httpx.DigestAuth] = (
+            httpx.DigestAuth(username, password) if username and password else None
+        )
 
     async def _request(self, method: str, params: Dict[str, Any]) -> Dict[str, Any]:
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
                 f"{self.url}/json_rpc",
                 json={"jsonrpc": "2.0", "id": 0, "method": method, "params": params},
                 headers=self.headers,
                 auth=self.auth,
                 timeout=self.timeout,
-            ) as response:
-                return await response.json(content_type=None)
+            )
+            return response.json()
 
     async def get_balance(
         self, account_index: int, address_indices: Optional[List[int]] = None
