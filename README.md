@@ -46,12 +46,16 @@ Here is a simple example to get you started:
 ```python
 import asyncio
 
-from nerva.daemon import DaemonRPC
+from nerva.daemon import Daemon
 
 
 async def main():
-    daemon = DaemonRPC(
-        host="x.y.z.w",
+    daemon = Daemon(
+        host="localhost",
+        port=17566,
+        ssl=False,
+        username="rpcuser", # omit if daemon was not started with the rpc-login flag
+        password="rpcpassword" # omit if daemon was not started with the rpc-login flag
     )
 
     print(await daemon.get_info())
