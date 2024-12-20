@@ -1,6 +1,9 @@
 env:
 	uv venv
 
+rmenv:
+	rm -rf .venv
+
 install:
 	uv sync --no-dev
 
@@ -17,5 +20,5 @@ format:
 	ruff check --select I --fix .
 	ruff format .
 
-.PHONY: env install install-dev install-extras build publish format
+.PHONY: env rmenv install install-dev build publish format
 .DEFAULT_GOAL := build
