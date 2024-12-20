@@ -1,12 +1,11 @@
 env:
 	uv sync --no-dev
 
-dev:
-	uv sync --all-extras
+install:
+	uv sync --no-dev
 
-format:
-	ruff check --select I --fix .
-	ruff format .
+install-dev:
+	uv sync --extra dev
 
 build:
 	uv build
@@ -14,5 +13,9 @@ build:
 publish:
 	uv publish --token $(token)
 
-.PHONY: env dev format build publish
+format:
+	ruff check --select I --fix .
+	ruff format .
+
+.PHONY: env install install-dev install-extras build publish format
 .DEFAULT_GOAL := build
