@@ -1,5 +1,5 @@
 env:
-	uv sync --no-dev
+	uv venv
 
 install:
 	uv sync --no-dev
